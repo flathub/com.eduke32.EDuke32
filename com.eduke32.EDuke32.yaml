@@ -20,7 +20,7 @@ add-extensions:
     autodelete: true
     no-autodownload: true
 modules:
-  - shared-modules/glu/glu-9.0.0.json
+  - shared-modules/glu/glu-9.json
 
   - name: EDuke32
     buildsystem: simple
