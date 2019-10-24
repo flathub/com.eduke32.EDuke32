@@ -20,7 +20,7 @@ add-extensions:
     autodelete: true
     no-autodownload: true
 modules:
-  - shared-modules/glu/glu-9.0.0.json
+  - shared-modules/glu/glu-9.json
 
   - name: EDuke32
     buildsystem: simple
@@ -29,23 +29,41 @@ modules:
       - install -Dm755 -t ${FLATPAK_DEST}/bin/ eduke32 mapster32
       - install -Dm644 -t ${FLATPAK_DEST}/share/applications/ com.eduke32.EDuke32.desktop com.eduke32.EDuke32-mapster32.desktop
       - install -Dm644 -t ${FLATPAK_DEST}/share/appdata/ com.eduke32.EDuke32.appdata.xml
-      - install -Dm644 eduke32-icon128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.png
-      - install -Dm644 mapster32-icon128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/${FLATPAK_ID}-mapster32.png
+    
+      - for s in {32,64,128,256,512}; do
+        convert "eduke32-icon128.png" -resize "${s}" "${FLATPAK_ID}.png";
+        install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
+        convert "mapster32-icon128.png" -resize "${s}" "${FLATPAK_ID}-mapster32.png";
+        install -p -Dm644 "${FLATPAK_ID}-mapster32.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/";
+        done;  
     post-install:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
-    - type: archive
-      url: http://dukeworld.duke4.net/eduke32/synthesis/20190804-7888/eduke32_src_20190804-7888.tar.xz
-      sha256: efd616405032d525d97b807ce2a835728561f0e29063099d59d7467904ab908b
-    - type: patch
-      path: flatpak_paths.patch
-    - type: file
-      path: com.eduke32.EDuke32.appdata.xml
-    - type: file
-      path: com.eduke32.EDuke32.desktop
-    - type: file
-      path: com.eduke32.EDuke32-mapster32.desktop
-    - type: file
-      path: eduke32-icon128.png
-    - type: file
-      path: mapster32-icon128.png
+      - type: archive
+        url: http://dukeworld.duke4.net/eduke32/synthesis/20190804-7888/eduke32_src_20190804-7888.tar.xz
+        sha256: efd616405032d525d97b807ce2a835728561f0e29063099d59d7467904ab908b
+      - type: patch
+        path: flatpak_paths.patch
+      - type: file
+        path: com.eduke32.EDuke32.appdata.xml
+      - type: file
+        path: com.eduke32.EDuke32.desktop
+      - type: file
+        path: com.eduke32.EDuke32-mapster32.desktop
+      - type: file
+        path: eduke32-icon128.png
+      - type: file
+        path: mapster32-icon128.png
+    modules:
+      - name: ImageMagick
+        config-opts:
+          - --disable-static
+          - --disable-docs
+          - --with-hdri
+          - --with-pic
+        sources:
+          - type: archive
+            url: https://github.com/ImageMagick/ImageMagick/archive/7.0.8-65.tar.gz
+            sha256: 14afaf722d8964ed8de2ebd8184a229e521f1425e18e7274806f06e008bf9aa7
+        cleanup:
+          - '*'
