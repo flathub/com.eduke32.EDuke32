@@ -40,8 +40,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: http://dukeworld.duke4.net/eduke32/synthesis/20190804-7888/eduke32_src_20190804-7888.tar.xz
-        sha256: efd616405032d525d97b807ce2a835728561f0e29063099d59d7467904ab908b
+        url: http://dukeworld.duke4.net/eduke32/synthesis/20200505-8904-0b0e9923c/eduke32_src_20200505-8904-0b0e9923c.tar.xz
+        sha256: b92157eae9c8ff9f3dfbfebd136c66dee7e5e05cdc34851ca8dd2c69fd32d09f
       - type: patch
         path: flatpak_paths.patch
       - type: file
