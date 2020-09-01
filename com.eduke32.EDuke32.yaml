@@ -1,6 +1,6 @@
 app-id: com.eduke32.EDuke32
 runtime: org.freedesktop.Platform
-runtime-version: '19.08'
+runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
 command: eduke32
 finish-args:
@@ -40,8 +40,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: http://dukeworld.duke4.net/eduke32/synthesis/20200505-8904-0b0e9923c/eduke32_src_20200505-8904-0b0e9923c.tar.xz
-        sha256: b92157eae9c8ff9f3dfbfebd136c66dee7e5e05cdc34851ca8dd2c69fd32d09f
+        url: http://dukeworld.duke4.net/eduke32/synthesis/20200829-9253-156963ddc/eduke32_src_20200829-9253-156963ddc.tar.xz
+        sha256: 708b1ecf39808f52b12d7504d70c2f211893d2b0f58b49e0b2bd0acfde25436b
       - type: patch
         path: flatpak_paths.patch
       - type: file
