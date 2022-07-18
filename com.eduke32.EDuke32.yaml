@@ -39,8 +39,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: https://dukeworld.com/eduke32/synthesis/latest/eduke32_src_20220702-10113-e27a7b621.tar.xz
-        sha256: 49e6eb8dce0fc68880adbed2d032f66957056464244441f1b77ae3e558af2ab1
+        url: https://dukeworld.com/eduke32/synthesis/latest/eduke32_src_20220709-10115-d496daf54.tar.xz
+        sha256: e206894e7c4fbc6f529cc02e771b72c3d4aa67d17661b1bec2a66a72a74534ac
         x-checker-data:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
@@ -48,8 +48,6 @@ modules:
           url-template: https://dukeworld.com/eduke32/synthesis/latest/eduke32_src_$version.tar.xz
       - type: patch
         path: flatpak_paths.patch
-      - type: patch
-        path: version_number.patch
       - type: file
         path: com.eduke32.EDuke32.appdata.xml
       - type: file
