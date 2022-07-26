@@ -26,6 +26,7 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="20220726-10118-9ae924b98" date="2022-07-26"/>
     <release version="20220709-10115-d496daf54" date="2022-07-09"/>
   </releases>
   <url type="homepage">https://www.eduke32.com/</url>
