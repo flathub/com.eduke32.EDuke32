@@ -11,6 +11,10 @@ finish-args:
   - --device=all
   # For storing game files
   - --filesystem=xdg-documents/EDuke32:create
+  # For detecting existing game files
+  - --filesystem=~/.var/app/com.valvesoftware.Steam
+  - --filesystem=xdg-data/Steam
+  - --filesystem=~/.steam
   # Unfortunately doesn't seem to respect XDG
   - --persist=.config/eduke32
 add-extensions:
