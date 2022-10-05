@@ -6,11 +6,29 @@
   <name>EDuke32</name>
   <summary>EDuke32 is an awesome, free homebrew game engine</summary>
   <description>
-    <p>EDuke32 is a free game engine and a source port of the classic PC first person shooter Duke Nukem 3D. It is free to use for non-commercial purposes, and contains many additional features useful to homebrew makers.</p>
-    <p>Compared to the original version, it also contains a lot of enhancements for players, such as a lot of bug fixes, support for real 3D OpenGL output, and high resolutions.</p>
-    <p>EDuke32 comes with a map editor, Mapster32, for creation of new levels.</p>
+    <p>
+      EDuke32 is a source port of Ken Silverman's Build Engine with support for
+      Duke Nukem 3D, Ion Fury and Shadow Warrior (via VoidSW), among others.
+    </p>
+    <p>
+      Features include:
+    </p>
+    <ul>
+      <li>Modern OpenGL rendering with dynamically lighting and shadows</li>
+      <li>Voxel assets</li>
+      <li>Emulated OPL3, MIDI or OGG/FLAC soundtracks</li>
+      <li>Gamepad support</li>
+      <li>Classic software rendering</li>
+    </ul>
+    <p>
+      EDuke32 comes with a map editors, Mapster32 and Wangulator, for creation
+      of new levels and is free to use for non-commercial purposes.
+    </p>
   </description>
   <launchable type="desktop-id">com.eduke32.EDuke32.desktop</launchable>
+  <launchable type="desktop-id">com.eduke32.EDuke32-mapster32.desktop</launchable>
+  <launchable type="desktop-id">com.eduke32.EDuke32-voidsw.desktop</launchable>
+  <launchable type="desktop-id">com.eduke32.EDuke32-wangulator.desktop</launchable>
   <screenshots>
     <screenshot type="default">
       <image type="source">https://www.eduke32.com/images/shots/polymer2.jpg</image>
