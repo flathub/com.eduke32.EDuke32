@@ -31,12 +31,10 @@ modules:
     buildsystem: simple
     build-commands:
       - make duke3d sw kenbuild -j${FLATPAK_BUILDER_N_JOBS}
-      - install -Dm755 -t ${FLATPAK_DEST}/bin/ eduke32 mapster32 voidsw wangulator ekenbuild ekenbuild-editor
-      - install -Dm644 -t ${FLATPAK_DEST}/share/applications/
-        com.eduke32.EDuke32.desktop
-        com.eduke32.EDuke32-mapster32.desktop
-        com.eduke32.EDuke32-voidsw.desktop
-        com.eduke32.EDuke32-wangulator.desktop
+      - install -Dm755 -t ${FLATPAK_DEST}/bin/ eduke32 mapster32 voidsw wangulator
+        ekenbuild ekenbuild-editor
+      - install -Dm644 -t ${FLATPAK_DEST}/share/applications/ com.eduke32.EDuke32.desktop
+        com.eduke32.EDuke32-mapster32.desktop com.eduke32.EDuke32-voidsw.desktop com.eduke32.EDuke32-wangulator.desktop
       - install -Dm644 -t ${FLATPAK_DEST}/share/appdata/ com.eduke32.EDuke32.appdata.xml
       - install -Dm644 ${FLATPAK_ID}-64.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
       - install -Dm644 ${FLATPAK_ID}-mapster32-64.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}-mapster32.png
@@ -47,8 +45,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: https://dukeworld.com/eduke32/synthesis/latest/eduke32_src_20220929-10163-2b3f691cd.tar.xz
-        sha256: db52c88e7a1e19c4f82419e1a1aac4918bdf704641806ac84c006fdbe9b4eadf
+        url: https://dukeworld.com/eduke32/synthesis/latest/eduke32_src_20221018-10164-810e1c13f.tar.xz
+        sha256: c359670693fc855834d5455f3f8b5004a4a670a973a211831fd8c9dee12a3a85
         x-checker-data:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
