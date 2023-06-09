@@ -51,7 +51,7 @@ modules:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
           version-pattern: eduke32_src_(\d{8}-\d+-[a-g0-9]+).tar.xz
-          url-template: https://dukeworld.com/eduke32/synthesis/latest/eduke32_src_$version.tar.xz
+          url-template: https://dukeworld.com/eduke32/synthesis/$version/eduke32_src_$version.tar.xz
       - type: patch
         path: flatpak_paths.patch
       - type: file
