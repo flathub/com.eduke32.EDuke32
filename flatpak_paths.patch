@@ -1,15 +1,44 @@
+diff --git a/source/build/src/compat.cpp b/source/build/src/compat.cpp
+index 0ac55919a..5e0af7989 100644
+--- a/source/build/src/compat.cpp
++++ b/source/build/src/compat.cpp
+@@ -127,13 +127,12 @@ char *Bgethomedir(void)
+     return Xstrdup(cwd);
+ #else
+     char const *e;
+-    if ((e = getenv("XDG_CONFIG_HOME")) == NULL || e[0] == '\0')
+-        if ((e = getenv("HOME")) == NULL || e[0] == '\0')
+-        {
+-            auto const pw = getpwuid(getuid());
+-            if (pw == NULL || (e = pw->pw_dir) == NULL || e[0] == '\0')
+-                return NULL;
+-        }
++    if ((e = getenv("HOME")) == NULL || e[0] == '\0')
++    {
++        auto const pw = getpwuid(getuid());
++        if (pw == NULL || (e = pw->pw_dir) == NULL || e[0] == '\0')
++            return NULL;
++    }
+     return Xstrdup(e);
+ #endif
+ }
 diff --git a/source/duke3d/src/common.cpp b/source/duke3d/src/common.cpp
-index db09fb5b4..006561b00 100644
+index db09fb5b4..0da3806eb 100644
 --- a/source/duke3d/src/common.cpp
 +++ b/source/duke3d/src/common.cpp
-@@ -597,10 +597,18 @@ void G_AddSearchPaths(void)
+@@ -597,13 +597,23 @@ void G_AddSearchPaths(void)
  #if defined __linux__ || defined EDUKE32_BSD
      char buf[BMAX_PATH];
      char *homepath = Bgethomedir();
 +    char *xdg_docs_path = getenv("XDG_DOCUMENTS_DIR");
++    char *xdg_config_path = getenv("XDG_CONFIG_DIR");
  
++    // Steam
      Bsnprintf(buf, sizeof(buf), "%s/.steam/steam", homepath);
      Duke_AddSteamPaths(buf);
+ 
+     Bsnprintf(buf, sizeof(buf), "%s/.steam/steam/steamapps/libraryfolders.vdf", homepath);
+     Paths_ParseSteamLibraryVDF(buf, Duke_AddSteamPaths);
  
 +    // Steam Flatpak
 +    Bsnprintf(buf, sizeof(buf), "%s/.var/app/com.valvesoftware.Steam/.steam/steam", homepath);
@@ -18,15 +47,20 @@ index db09fb5b4..006561b00 100644
 +    Bsnprintf(buf, sizeof(buf), "%s/.var/app/com.valvesoftware.Steam/.steam/steam/steamapps/libraryfolders.vdf", homepath);
 +    Paths_ParseSteamLibraryVDF(buf, Duke_AddSteamPaths);
 +
-     Bsnprintf(buf, sizeof(buf), "%s/.steam/steam/steamapps/libraryfolders.vdf", homepath);
-     Paths_ParseSteamLibraryVDF(buf, Duke_AddSteamPaths);
- 
-@@ -614,12 +622,23 @@ void G_AddSearchPaths(void)
+     // Duke Nukem 3D: Atomic Edition - GOG.com
+     Bsnprintf(buf, sizeof(buf), "%s/GOG Games/Duke Nukem 3D Atomic Edition", homepath);
+     Duke_Add_GOG_Atomic_Linux(buf);
+@@ -614,12 +624,29 @@ void G_AddSearchPaths(void)
      Fury_Add_GOG_Linux(buf);
      Paths_ParseXDGDesktopFilesFromGOG(homepath, "ION_Fury", Fury_Add_GOG_Linux);
  
++    if (xdg_config_path) {
++        Bsnprintf(buf, sizeof(buf), "%s/EDuke32", xdg_config_path);
++        addsearchpath(buf);
++    }
++
 +    if (xdg_docs_path) {
-+        Bsnprintf(buf, sizeof(buf), "%s/Eduke32", xdg_docs_path);
++        Bsnprintf(buf, sizeof(buf), "%s/EDuke32", xdg_docs_path);
 +        addsearchpath(buf);
 +    }
 +    else {
@@ -36,6 +70,7 @@ index db09fb5b4..006561b00 100644
 +
      Xfree(homepath);
 +    Xfree(xdg_docs_path);
++    Xfree(xdg_config_path);
  
      addsearchpath("/usr/share/games/jfduke3d");
      addsearchpath("/usr/local/share/games/jfduke3d");
@@ -46,17 +81,22 @@ index db09fb5b4..006561b00 100644
      char buf[BMAX_PATH];
      int32_t i;
 diff --git a/source/sw/src/common.cpp b/source/sw/src/common.cpp
-index de123630e..db8131295 100644
+index de123630e..0ac5154b8 100644
 --- a/source/sw/src/common.cpp
 +++ b/source/sw/src/common.cpp
-@@ -158,10 +158,18 @@ static void SW_AddSearchPaths()
+@@ -158,13 +158,23 @@ static void SW_AddSearchPaths()
  #if defined __linux__ || defined EDUKE32_BSD
      char buf[BMAX_PATH];
      char *homepath = Bgethomedir();
 +    char *xdg_docs_path = getenv("XDG_DOCUMENTS_DIR");
++    char *xdg_config_path = getenv("XDG_CONFIG_DIR");
  
++    // Steam
      Bsnprintf(buf, sizeof(buf), "%s/.steam/steam", homepath);
      SW_AddSteamPaths(buf);
+ 
+     Bsnprintf(buf, sizeof(buf), "%s/.steam/steam/steamapps/libraryfolders.vdf", homepath);
+     Paths_ParseSteamLibraryVDF(buf, SW_AddSteamPaths);
  
 +    // Steam Flatpak
 +    Bsnprintf(buf, sizeof(buf), "%s/.var/app/com.valvesoftware.Steam/.steam/steam", homepath);
@@ -65,13 +105,18 @@ index de123630e..db8131295 100644
 +    Bsnprintf(buf, sizeof(buf), "%s/.var/app/com.valvesoftware.Steam/.steam/steam/steamapps/libraryfolders.vdf", homepath);
 +    Paths_ParseSteamLibraryVDF(buf, SW_AddSteamPaths);
 +
-     Bsnprintf(buf, sizeof(buf), "%s/.steam/steam/steamapps/libraryfolders.vdf", homepath);
-     Paths_ParseSteamLibraryVDF(buf, SW_AddSteamPaths);
- 
-@@ -175,12 +183,23 @@ static void SW_AddSearchPaths()
+     // Shadow Warrior Classic Redux - GOG.com
+     Bsnprintf(buf, sizeof(buf), "%s/GOG Games/Shadow Warrior Classic Redux", homepath);
+     SW_Add_GOG_SWCR_Linux(buf);
+@@ -175,12 +185,29 @@ static void SW_AddSearchPaths()
      SW_Add_GOG_SWCC_Linux(buf);
      Paths_ParseXDGDesktopFilesFromGOG(homepath, "Shadow_Warrior_Classic_Complete", SW_Add_GOG_SWCC_Linux);
  
++    if (xdg_config_path) {
++        Bsnprintf(buf, sizeof(buf), "%s/VoidSW", xdg_config_path);
++        addsearchpath(buf);
++    }
++
 +    if (xdg_docs_path) {
 +        Bsnprintf(buf, sizeof(buf), "%s/VoidSW", xdg_docs_path);
 +        addsearchpath(buf);
@@ -83,6 +128,7 @@ index de123630e..db8131295 100644
 +
      Xfree(homepath);
 +    Xfree(xdg_docs_path);
++    Xfree(xdg_config_path);
  
      addsearchpath("/usr/share/games/jfsw");
      addsearchpath("/usr/local/share/games/jfsw");
