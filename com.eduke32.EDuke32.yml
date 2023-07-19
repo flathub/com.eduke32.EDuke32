@@ -11,6 +11,7 @@ finish-args:
   - --device=all
   # For storing game files
   - --filesystem=xdg-documents/EDuke32:create
+  - --filesystem=xdg-documents/VoidSW:create
   # For detecting existing game files
   - --filesystem=~/.var/app/com.valvesoftware.Steam
   - --filesystem=xdg-data/Steam
