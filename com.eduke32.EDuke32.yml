@@ -1,6 +1,6 @@
 app-id: com.eduke32.EDuke32
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: eduke32
 finish-args:
@@ -38,11 +38,36 @@ modules:
       - install -Dm644 -t ${FLATPAK_DEST}/share/applications/ com.eduke32.EDuke32.desktop
         com.eduke32.EDuke32-mapster32.desktop com.eduke32.EDuke32-voidsw.desktop com.eduke32.EDuke32-wangulator.desktop
       - install -Dm644 -t ${FLATPAK_DEST}/share/appdata/ com.eduke32.EDuke32.appdata.xml
-      - install -Dm644 ${FLATPAK_ID}-64.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
-      - install -Dm644 ${FLATPAK_ID}-mapster32-64.png ${FLATPAK_DEST}/share/icons/hicolor/64x64/apps/${FLATPAK_ID}-mapster32.png
-      - install -Dm644 ${FLATPAK_ID}-128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.png
-      - install -Dm644 ${FLATPAK_ID}-mapster32-128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/${FLATPAK_ID}-mapster32.png
-      - install -Dm644 source/sw/rsrc/game_icon.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}-voidsw.svg
+      - >
+        SIZES='16 24 32 48 64 128 256'
+        GAMES='duke3d sw'
+        
+        for GAME in ${GAMES} ; do
+          GAME_ID="${FLATPAK_ID}-${GAME}"
+          ICON_OUT="${GAME_ID}.png"
+          ICON_ALT_OUT="${GAME_ID}-alt.png"
+          SVG_OUT="${GAME_ID}.svg"
+          ICON_IN_DIR="source/${GAME}/rsrc/"
+          
+          for s in ${SIZES} ; do
+            ICO_IN="${ICON_IN_DIR}/game_icon.ico"
+            SVG_IN="${ICON_IN_DIR}/game_icon.svg"
+            if [ -e "${ICO_IN}" ]; then
+              STREAM_ID="$(ffprobe -i "${ICO_IN}" 2>&1 | grep -v pal8 | sed -rn "s/^\s+Stream #0:([0-9]+):.* ${s}x${s}.*$/\1/p")"
+              if [ -n "${STREAM_ID}" ]; then
+                ffmpeg -y -i "${ICO_IN}" -map "0:${STREAM_ID}" -r 1 -update 1 "${ICON_OUT}"
+                ffmpeg -y -i "${ICO_IN}" -map "0:${STREAM_ID}" -r 1 -update 1 -vf hue=h=180:b=1.1 "${ICON_ALT_OUT}"
+                install -p -D -m 0644 "${ICON_OUT}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/"
+                install -p -D -m 0644 "${ICON_ALT_OUT}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/"
+              fi
+            fi
+          done
+          
+          if [ -e "${SVG_IN}" ]; then
+            ln -s "${SVG_IN}" "${SVG_OUT}"
+            install -p -D -m 0644 "${SVG_OUT}" -t "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/"
+          fi
+        done
     post-install:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
@@ -64,11 +89,3 @@ modules:
         path: com.eduke32.EDuke32-voidsw.desktop
       - type: file
         path: com.eduke32.EDuke32-wangulator.desktop
-      - type: file
-        path: icons/com.eduke32.EDuke32-64.png
-      - type: file
-        path: icons/com.eduke32.EDuke32-mapster32-64.png
-      - type: file
-        path: icons/com.eduke32.EDuke32-128.png
-      - type: file
-        path: icons/com.eduke32.EDuke32-mapster32-128.png
