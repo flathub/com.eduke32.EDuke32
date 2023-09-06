@@ -41,7 +41,7 @@ modules:
       - >
         SIZES='16 24 32 48 64 128 256'
         GAMES='duke3d sw'
-        
+
         for GAME in ${GAMES} ; do
           GAME_ID="${FLATPAK_ID}-${GAME}"
           ICON_OUT="${GAME_ID}.png"
@@ -53,10 +53,12 @@ modules:
             ICO_IN="${ICON_IN_DIR}/game_icon.ico"
             SVG_IN="${ICON_IN_DIR}/game_icon.svg"
             if [ -e "${ICO_IN}" ]; then
-              STREAM_ID="$(ffprobe -i "${ICO_IN}" 2>&1 | grep -v pal8 | sed -rn "s/^\s+Stream #0:([0-9]+):.* ${s}x${s}.*$/\1/p")"
+              STREAM_ID="$(ffprobe -i "${ICO_IN}" 2>&1 | grep -v pal8 | sed -rn "s/^\s+Stream
+        #0:([0-9]+):.* ${s}x${s}.*$/\1/p")"
               if [ -n "${STREAM_ID}" ]; then
                 ffmpeg -y -i "${ICO_IN}" -map "0:${STREAM_ID}" -r 1 -update 1 "${ICON_OUT}"
-                ffmpeg -y -i "${ICO_IN}" -map "0:${STREAM_ID}" -r 1 -update 1 -vf hue=h=180:b=1.1 "${ICON_ALT_OUT}"
+                ffmpeg -y -i "${ICO_IN}" -map "0:${STREAM_ID}" -r 1 -update 1 -vf
+        hue=h=180:b=1.1 "${ICON_ALT_OUT}"
                 install -p -D -m 0644 "${ICON_OUT}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/"
                 install -p -D -m 0644 "${ICON_ALT_OUT}" -t "${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/"
               fi
@@ -72,8 +74,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: https://dukeworld.com/eduke32/synthesis/20230905-10434-a2a6009a5/eduke32_src_20230905-10434-a2a6009a5.tar.xz
-        sha256: 3a5b08eee776f7965ff22b792b90fb66fe622edc38bca514d5dea25919a4e9e4
+        url: https://dukeworld.com/eduke32/synthesis/20230906-10435-0398fe7ff/eduke32_src_20230906-10435-0398fe7ff.tar.xz
+        sha256: 5f39e262bf15d7dbf59fa113ee2447f8168170193f41b9b280f96a9dc36efe8e
         x-checker-data:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
