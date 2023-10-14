@@ -32,7 +32,7 @@ modules:
   - name: EDuke32
     buildsystem: simple
     build-commands:
-      - make duke3d sw kenbuild -j${FLATPAK_BUILDER_N_JOBS} LF=
+      - make duke3d sw kenbuild -j${FLATPAK_BUILDER_N_JOBS} FORCEDEBUG=1 LF=
       - install -Dm755 -t ${FLATPAK_DEST}/bin/ eduke32 mapster32 voidsw wangulator
         ekenbuild ekenbuild-editor
       - install -Dm644 -t ${FLATPAK_DEST}/share/applications/ com.eduke32.EDuke32.desktop
