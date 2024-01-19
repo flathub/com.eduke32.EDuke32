@@ -2,6 +2,6 @@
 Type=Application
 Name=EDuke32
 Exec=eduke32
-Icon=com.eduke32.EDuke32-duke3d
+Icon=com.eduke32.EDuke32
 Categories=Game;Shooter
 Keywords=Game;Shooter;Build;Duke32;Duke;Nukem;3D;
