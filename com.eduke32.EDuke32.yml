@@ -15,6 +15,7 @@ finish-args:
   # For detecting existing game files
   - --filesystem=~/.var/app/com.valvesoftware.Steam
   - --filesystem=~/.steam
+  - --filesystem=~/.local/share/Steam
   - --filesystem=~/GOG Games
   - --filesystem=~/.local/share/applications:ro
   # Unfortunately doesn't seem to respect XDG
