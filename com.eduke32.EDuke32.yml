@@ -70,7 +70,7 @@ modules:
             install -p -D -m 0644 "${SVG_OUT}" -t "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/"
           fi
         done
-        
+
         for s in ${SIZES} ; do
           ICON_PREFIX="${FLATPAK_DEST}/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}"
           cp "${ICON_PREFIX}-duke3d.png" "${ICON_PREFIX}.png"
@@ -79,8 +79,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: https://dukeworld.com/eduke32/synthesis/20231224-10548-842047589/eduke32_src_20231224-10548-842047589.tar.xz
-        sha256: 16ed494f9d09920ac4c5f167f8098a2e1f455da32243b7fd63d7d8e1db13b0e2
+        url: https://dukeworld.com/eduke32/synthesis/20240217-10553-cb949b8be/eduke32_src_20240217-10553-cb949b8be.tar.xz
+        sha256: 2fe167739180e89f41e422eb865f01ebabd31bca1a16007e2c36e604c7ee37ed
         x-checker-data:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
