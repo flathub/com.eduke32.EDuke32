@@ -44,6 +44,7 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="20240513-10568-088ce5c34" date="2024-05-14"/>
     <release version="20240513-10566-11d2f1c69" date="2024-05-13"/>
     <release version="20240316-10564-0bc78c53d" date="2024-03-16"/>
     <release version="20240305-10560-f5cb424be" date="2024-03-06"/>
