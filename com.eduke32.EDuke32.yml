@@ -1,6 +1,6 @@
 app-id: com.eduke32.EDuke32
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 command: eduke32
 finish-args:
@@ -8,6 +8,7 @@ finish-args:
   - --share=network
   - --socket=x11
   - --socket=pulseaudio
+  - --device=dri
   - --device=all
   # For storing game files
   - --filesystem=xdg-documents/EDuke32:create
@@ -79,13 +80,15 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: https://dukeworld.com/eduke32/synthesis/20240604-10578-30deaa520/eduke32_src_20240604-10578-30deaa520.tar.xz
-        sha256: f9c57817a3540f79426eaa74b19a79dcd75716d4d9cf3e63f5c284ed7660b6a2
+        url: https://dukeworld.com/eduke32/synthesis/20241226-10608-8d79c372a/eduke32_src_20241226-10608-8d79c372a.tar.xz
+        sha256: 6e5f373f660010ad0644c8fdc2eb8f80ced7219ef4bd9a889f8836809d73b97e
         x-checker-data:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
           version-pattern: eduke32_src_(\d{8}-\d+-[a-g0-9]+).tar.xz
           url-template: https://dukeworld.com/eduke32/synthesis/$version/eduke32_src_$version.tar.xz
+      - type: patch
+        path: gdk_pixbuf_png.diff
       - type: file
         path: com.eduke32.EDuke32.appdata.xml
       - type: file
