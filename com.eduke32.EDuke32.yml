@@ -80,8 +80,8 @@ modules:
       - install -d "${FLATPAK_DEST}/extensions"
     sources:
       - type: archive
-        url: https://dukeworld.com/eduke32/synthesis/20250315-10617-2561cf18c/eduke32_src_20250315-10617-2561cf18c.tar.xz
-        sha256: 297017fb0150aa21e6ca1f257d111b1a6d9be8d0a1511e9ae2c9dc55a9954039
+        url: https://dukeworld.com/eduke32/synthesis/20250329-10618-821c90525/eduke32_src_20250329-10618-821c90525.tar.xz
+        sha256: 0927d8dd5b6df8e65a46def39d47205555699988ae9cbe8393ca965b0f280984
         x-checker-data:
           type: html
           url: https://dukeworld.com/eduke32/synthesis/latest/
