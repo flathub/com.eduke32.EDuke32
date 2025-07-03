@@ -44,8 +44,11 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="20250630-10620-23f57afd4" date="2025-06-30">
+    <release version="20250703-10622-dfb9760b7" date="2025-07-03">
       <description></description>
+    </release>
+    <release version="20250630-10620-23f57afd4" date="2025-06-30">
+      <description/>
     </release>
     <release version="20250411-10619-b87598471" date="2025-04-11">
       <description/>
