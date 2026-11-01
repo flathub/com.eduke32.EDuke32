@@ -1,6 +1,6 @@
 app-id: com.eduke32.EDuke32
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 command: eduke32
 finish-args:
@@ -86,8 +86,6 @@ modules:
           url: https://dukeworld.com/eduke32/synthesis/latest/
           version-pattern: eduke32_src_(\d{8}-\d+-[a-g0-9]+).tar.xz
           url-template: https://dukeworld.com/eduke32/synthesis/$version/eduke32_src_$version.tar.xz
-      - type: patch
-        path: gdk_pixbuf_png.diff
       - type: file
         path: com.eduke32.EDuke32.appdata.xml
       - type: file
